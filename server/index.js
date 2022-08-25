@@ -13,9 +13,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const cors = require('cors');
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
+app.use(cors());
 
 app.get("/api", (req, res) => {
     res.json({ message : "Hello from server!" });
@@ -23,6 +21,7 @@ app.get("/api", (req, res) => {
   });
 
 app.get("/cards/:id?", (req, res) => {
+  console.log("get card");
   if (req.params.id) {
     try {
       cardModel.findOne({_id: mongoose.Types.ObjectId(req.params.id)}, (err, card) => {
